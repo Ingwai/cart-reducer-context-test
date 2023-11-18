@@ -1,4 +1,4 @@
-import { CLEAR_CART, REMOVE, INCREASE, DECREASE, LOADING, DISPLAY_ITEMS } from './actions.js';
+import { CLEAR_CART, REMOVE, INCREASE, DECREASE, LOADING, DISPLAY_ITEMS, ERROR } from './actions.js';
 import cartItems from './data.jsx';
 
 const reducer = (state, action) => {
@@ -46,6 +46,10 @@ const reducer = (state, action) => {
 		// dane z Api które są w talblicy trzeba zamienić na new Map a potem zapętlić aby wyodrębnić klucz jako item.id a jako value resztę tablicy pod nazwą item
 		const newCart = new Map(action.payload.cart.map(item => [item.id, item]));
 		return { ...state, loading: false, cart: newCart };
+	}
+
+	if (action.type === ERROR) {
+		return { ...state, loading: false, error: true };
 	}
 
 	throw new Error(`No matching ${action.type} - action type`);

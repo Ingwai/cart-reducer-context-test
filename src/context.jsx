@@ -1,9 +1,9 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
 import reducer from './reducer';
 import cartItems from './data.jsx';
-import { CLEAR_CART, REMOVE, INCREASE, DECREASE, LOADING, DISPLAY_ITEMS } from './actions.js';
+import { CLEAR_CART, REMOVE, INCREASE, DECREASE, LOADING, DISPLAY_ITEMS, ERROR } from './actions.js';
 import { getTotals } from './utils.js';
-const url = 'https://www.course-api.com/react-useReducer-cart-project';
+const url = 'https://www.course-api.com/react-useReducer-cart-projec';
 
 export const AppContext = createContext();
 export const useGlobalContext = () => useContext(AppContext);
@@ -11,6 +11,7 @@ export const useGlobalContext = () => useContext(AppContext);
 const initialState = {
 	loading: false,
 	cart: new Map(),
+	error: false,
 };
 
 const AppProvider = ({ children }) => {
@@ -38,6 +39,7 @@ const AppProvider = ({ children }) => {
 			dispatch({ type: LOADING });
 			const response = await fetch(url);
 			if (!response.ok) {
+				dispatch({ type: ERROR });
 				throw new Error('Something get wrong');
 			}
 			const cart = await response.json();

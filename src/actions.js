@@ -4,3 +4,4 @@ export const INCREASE = 'INCREASE';
 export const DECREASE = 'DECREASE';
 export const LOADING = 'LOADING';
 export const DISPLAY_ITEMS = 'DISPLAY_ITEMS';
+export const ERROR = 'ERROR';

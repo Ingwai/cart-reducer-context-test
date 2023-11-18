@@ -3,8 +3,18 @@ import { useGlobalContext } from './context';
 import cartItems from './data';
 
 const CartContainer = () => {
-	const { cart, clearCart, totalCost } = useGlobalContext();
+	const { cart, clearCart, totalCost, error } = useGlobalContext();
 	const cartArray = Array.from(cart.entries());
+
+	if (error)
+		return (
+			<section className='cart'>
+				{/* cart header */}
+				<header>
+					<h4 className='error'>Something went wrong! Please try again later...</h4>
+				</header>
+			</section>
+		);
 
 	if (cartArray.length === 0) {
 		return (
@@ -17,6 +27,7 @@ const CartContainer = () => {
 			</section>
 		);
 	}
+
 	return (
 		<section className='cart'>
 			{/* cart header */}
